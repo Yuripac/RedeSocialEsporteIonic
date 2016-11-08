@@ -1,0 +1,12 @@
+<ion-view view-title="Login">
+  <ion-content>
+    <label class="item" ng-show="!loading">
+        <button class="button button-block button-positive" ng-show='!loading' ng-click="fbLogin()">
+          Login with Facebook
+        </button>
+    </label>
+    <div class="spinner" ng-show="loading">
+      <ion-spinner icon="android"></ion-spinner>
+    <div>
+  </ion-content>
+</ion-view>
