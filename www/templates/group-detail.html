@@ -1,5 +1,5 @@
-<ion-view view-title="{{'Group '+group.name}}">
-  <ion-nav-bar class="bar-stable">
+<ion-view view-title="{{'Group ' + group.name}}">
+  <ion-nav-bar class="bar-positive">
     <ion-nav-back-button>
     </ion-nav-back-button>
 
@@ -10,15 +10,45 @@
   </ion-nav-bar>
 
   <ion-content class="has-header">
-    <div class="list card">
-      <div class="item">
-        <label>About:</label><p>{{group.description}}</p>
+
+    <div class="card">
+
+
+        <ion-toggle ng-model="createActivity.checked" toggle-class="toggle-calm" ng-show="isUserAdmin && group.activity.id == null">NEW ACTIVITY</ion-toggle>
+        <div class="item item-icon-right" ng-show="isUserAdmin && group.activity.id != null">
+          <h2>ACTIVITY</h2>
+          <i class="icon ion-android-close" ng-click="deleteActivity()"></i>
+        </div>
+        <div ng-show="createActivity.checked || group.activity.id != null">
+          <div class="item item-icon-left" ng-model="address" ng-click="openModalMap()">
+            <i class="icon ion-location positive"></i>
+            address:
+          </div>
+
+          <div class="item item-icon-left" ion-datetime-picker ng-model="group.activity.date" only-valid="{'after': 'today'}">
+            <i class="icon ion-calendar positive"></i>
+            date
+            <strong>{{group.activity.date | date: "dd/MM/yyyy HH:mm:ss"}}</strong>
+          </div>
+          <div class="item" ng-switch="group.activity.id == null">
+            <button class="button button-block button-positive" ng-click="newActivity(group.activity)" ng-switch-when="true">SAVE</button>
+            <button class="button button-block button-positive" ng-click="updateActivity(group.activity)" ng-switch-when="false">UPDATE</button>
+          </div>
+
+        </div>
       </div>
-      <div class="item" ng-show="group.activity">
-        <h2>Activity</h2>
-        <label>Location:<label> {{group.activity.address}}<br>
-        <label>Date:</label> {{group.activity.date}}
-        <div id="map"></div>
+
+    <div class="card">
+      <div class="item item-icon-right">
+        <h2>ABOUT</h2>
+        <i class="icon ion-edit" ng-click="openModalGroup()" ng-show="isUserAdmin"></i>
+      </div>
+
+      <div class="item item-text-wrap">
+        <p>{{group.description}}</p>
+      </div>
+      <div class="item">
+        <p>Sport: {{group.sport.name.toUpperCase()}}</p>
       </div>
     </div>
   </ion-content>

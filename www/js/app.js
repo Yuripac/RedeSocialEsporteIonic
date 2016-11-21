@@ -6,7 +6,7 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngOpenFB', 'ngCordova'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngOpenFB', 'ngCordova', 'ion-datetime-picker'])
 
 .run(function($ionicPlatform, ngFB) {
   ngFB.init({appId: '1646643982279130'});
@@ -42,14 +42,10 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     controller: 'AppCtrl'
   })
 
-  .state('app.login', {
+  .state('login', {
     url: '/login',
-    views: {
-      'login': {
-        templateUrl: 'templates/login.html',
-        controller: 'LoginCtrl'
-      }
-    }
+    templateUrl: 'templates/login.html',
+    controller: 'LoginCtrl'
   })
 
   .state('app.logout', {
@@ -57,17 +53,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
     resolve: {
       redirect: function($location, Auth) {
         Auth.logout()
-        $location.path('/app/login');
-      }
-    }
-  })
-
-  .state('app.profile', {
-    url: "/profile",
-    views: {
-      'tab-profile': {
-        templateUrl: "templates/profile.html",
-        controller: "ProfileCtrl"
+        $location.path('/login');
       }
     }
   })
@@ -75,7 +61,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   .state('app.groups', {
     url: '/groups',
     onEnter: function($state, Auth) {
-      console.log('Filtrou ' + Auth.isLoggedIn());
       if(!Auth.isLoggedIn())
         $state.go('app.login');
     },
@@ -83,6 +68,20 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       'tab-groups': {
         templateUrl: 'templates/tab-groups.html',
         controller: 'GroupCtrl'
+      }
+    }
+  })
+
+  .state('app.activities', {
+    url: '/activities',
+    onEnter: function($state, Auth) {
+      if(!Auth.isLoggedIn())
+      $state.go('app.login');
+    },
+    views: {
+      'tab-activities': {
+        templateUrl: 'templates/tab-activities.html',
+        controller: 'ActivityCtrl'
       }
     }
   })
@@ -95,9 +94,19 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         controller: 'GroupDetailCtrl'
       }
     }
+  })
+
+  .state('app.search', {
+    url: '/search',
+    views: {
+      'tab-search': {
+        templateUrl: "templates/tab-search.html",
+        controller: 'SearchCtrl'
+      }
+    }
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/groups')
+  $urlRouterProvider.otherwise('/app/activities')
 
 });

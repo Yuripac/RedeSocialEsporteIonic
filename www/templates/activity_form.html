@@ -1,0 +1,19 @@
+<ion-modal-view>
+    <ion-header-bar class="bar bar-header bar-positive">
+      <h1 class="title">{{group.name}}'s activity</h1>
+      <button class="button button-clear button-primary" ng-click="removeModalMap()">Cancel</button>
+    </ion-header-bar>
+  <ion-content>
+    <div class="item item-input">
+      <i class="icon ion-search placeholder-icon"></i>
+      <input id="pac-input" type="text" placeholder="Search Location" data-tap-disabled="true" ng-model="search">
+    </div>
+
+    <div id="map-search" data-tap-disabled="true"></div>
+
+    <div class="item">
+      <button class="padding button button-block button-positive" ng-click="saveAddress(); removeModalMap()">Save</button>
+    </div>
+  </ion-content>
+
+</ion-modal-view>

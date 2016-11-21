@@ -1,0 +1,29 @@
+<ion-modal-view>
+  <ion-pane>
+    <ion-header-bar class="bar bar-header bar-positive">
+      <h1 class="title">New Group</h1>
+      <button class="button button-clear button-primary" ng-click="modalGroup.hide()">Cancel</button>
+    </ion-header-bar>
+    <ion-content>
+      <div class="list">
+        <label class="item item-input">
+          <input type="text" placeholder="Name" ng-model="group.name"></input>
+        </label>
+        <label class="item item-input">
+          <textarea placeholder="Description" ng-model="group.description"></textarea>
+        </label>
+        <label class="item item-input item-select">
+          <div class="input-label">
+            Sport
+          </div>
+          <select ng-model="group.sport"
+            ng-options="x as x.name for x in sports track by x.id"></select>
+        </label>
+        <div class="padding">
+          <button class="button button-block button-positive"
+            ng-click="submitGroup(group); modalGroup.hide();" >Create</button>
+        </div>
+      </div>
+    </ion-content>
+  </ion-pane>
+</ion-modal-view>

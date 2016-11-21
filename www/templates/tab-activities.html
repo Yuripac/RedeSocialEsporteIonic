@@ -1,0 +1,22 @@
+<ion-view view-title="My Activities">
+  <ion-content>
+    <div class="card" ng-repeat="group in groups">
+      <div class="item"><h3 class="md-display-4"><b>{{group.name}}'s</b> Activity</h3></div>
+      <div class="item item-body">
+        <p>Date: {{group.activity.date}}</p>
+        <a ng-click="openModal(group)">
+          <i class="icon ion-location" ></i>
+          {{group.activity.address}}
+        </a>
+      </div>
+      <div class="item tabs tabs-left">
+        <a class="tab-item" ng-click="joinActivity(group)" ng-show="!group.activity.hasUser">
+          <i class="icon ion-android-done"></i>
+        </a>
+        <a class="tab-item" ng-click="unjoinActivity(group)" ng-show="group.activity.hasUser">
+          <i class="icon ion-android-close"></i>
+        </a>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>
